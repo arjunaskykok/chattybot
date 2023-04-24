@@ -41,6 +41,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.kodeco.android.chattybot.ui.theme.chattybotTheme
+import com.kodeco.chattybot.ui.TabScreen
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,10 +50,11 @@ class MainActivity : ComponentActivity() {
 
     super.onCreate(savedInstanceState)
     setContent {
+      val sharedPreferences = getSharedPreferences("ChattyPrefs", MODE_PRIVATE)
       chattybotTheme {
         // A surface container using the 'background' color from the theme
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-          Greeting("Android")
+          TabScreen(sharedPreferences = sharedPreferences)
         }
       }
     }
