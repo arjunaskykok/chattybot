@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import com.kodeco.android.chattybot.Greeting
+import com.kodeco.android.chattybot.ui.PersonaScreen
 
 @Composable
 fun TabScreen(sharedPreferences: SharedPreferences) {
@@ -34,7 +35,7 @@ fun TabScreen(sharedPreferences: SharedPreferences) {
     }
     when (selectedTabIndex) {
       0 -> Greeting("Content for Tab 1")
-      1 -> Greeting("Content for Tab 2")
+      1 -> PersonaScreen()
       2 -> SettingsScreen(sharedPreferences)
     }
   }
