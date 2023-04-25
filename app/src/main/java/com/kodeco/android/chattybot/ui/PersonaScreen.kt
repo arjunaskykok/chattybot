@@ -1,6 +1,7 @@
 package com.kodeco.android.chattybot.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,7 +17,7 @@ import com.kodeco.android.chattybot.model.Persona
 
 @Composable
 fun PersonaScreen() {
-  var isSelected by remember { mutableStateOf(false) }
+  var selectedIndex by remember { mutableStateOf(-1) }
 
   LazyColumn {
     items(Persona.personaInstruction.size) { index ->
@@ -32,9 +33,12 @@ fun PersonaScreen() {
           .padding(16.dp)
           .fillMaxWidth()
           .height(120.dp)
+          .border(if (selectedIndex == index) 4.dp else 0.dp,
+            Color.Cyan,
+            RoundedCornerShape(if (selectedIndex == index) 16.dp else 0.dp))
           .background(Color.LightGray, RoundedCornerShape(16.dp))
           .clickable {
-            isSelected = !isSelected
+            selectedIndex = index
           }
       ) {
         Text(
