@@ -21,7 +21,7 @@ fun ChattingScreen() {
     Box(Modifier.weight(1f).align(Alignment.End)) {
       Column(
         modifier = Modifier
-          .fillMaxSize(),
+          .fillMaxHeight(),
         verticalArrangement = Arrangement.Bottom
       ) {
         messages.forEach { message ->
