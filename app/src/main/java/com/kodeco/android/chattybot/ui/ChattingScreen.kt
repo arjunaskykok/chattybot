@@ -19,6 +19,7 @@ import com.kodeco.android.chattybot.model.Persona
 fun ChattingScreen() {
   var message by remember { mutableStateOf("") }
   val messages = remember { mutableStateListOf<String>() }
+  val aiMessages = remember { mutableStateListOf<String>() }
   Column(modifier = Modifier.fillMaxSize()) {
     Box(Modifier.weight(1f).align(Alignment.End)) {
       Column(
@@ -26,20 +27,39 @@ fun ChattingScreen() {
           .fillMaxHeight(),
         verticalArrangement = Arrangement.Bottom
       ) {
-        messages.forEach { message ->
-          Box(
-            modifier = Modifier
-              .padding(16.dp)
-              .fillMaxWidth(0.8f)
-              .height(120.dp)
-              .background(Color.LightGray, RoundedCornerShape(16.dp))
-          ) {
-            Text(
-              text = message,
+        val mixedMessages = messages.zip(aiMessages).flatMap { listOf(it.first, it.second) }
+        mixedMessages.forEachIndexed { index, message ->
+          if (index % 2 == 0) {
+            Box(
               modifier = Modifier
-                .align(Alignment.Center)
-                .padding(8.dp)
-            )
+                .padding(16.dp)
+                .fillMaxWidth(1f)
+                .height(120.dp)
+                .background(Color.LightGray, RoundedCornerShape(16.dp))
+            ) {
+              Text(
+                text = message,
+                modifier = Modifier
+                  .align(Alignment.Center)
+                  .padding(8.dp)
+              )
+            }
+          } else {
+            Box(
+              modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(1f)
+                .height(120.dp)
+                .background(Color.DarkGray, RoundedCornerShape(16.dp))
+            ) {
+              Text(
+                text = message,
+                modifier = Modifier
+                  .align(Alignment.Center)
+                  .padding(8.dp),
+                color = Color.White
+              )
+            }
           }
         }
       }
@@ -62,6 +82,7 @@ fun ChattingScreen() {
           modifier = Modifier.padding(start = 8.dp),
           onClick = {
             messages.add(message)
+            aiMessages.add(message.toCharArray().reversed().joinToString())
             message = ""
           },
           shape = RoundedCornerShape(8.dp)
