@@ -2,6 +2,7 @@ package com.kodeco.android.chattybot.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -12,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.kodeco.android.chattybot.model.Persona
 
 @Composable
 fun ChattingScreen() {
@@ -25,8 +27,20 @@ fun ChattingScreen() {
         verticalArrangement = Arrangement.Bottom
       ) {
         messages.forEach { message ->
-          Text(
-            text = message)
+          Box(
+            modifier = Modifier
+              .padding(16.dp)
+              .fillMaxWidth(0.8f)
+              .height(120.dp)
+              .background(Color.LightGray, RoundedCornerShape(16.dp))
+          ) {
+            Text(
+              text = message,
+              modifier = Modifier
+                .align(Alignment.Center)
+                .padding(8.dp)
+            )
+          }
         }
       }
     }
