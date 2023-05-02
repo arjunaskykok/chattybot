@@ -33,6 +33,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.kodeco.android.chattybot">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"

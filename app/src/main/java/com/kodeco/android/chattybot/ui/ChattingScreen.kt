@@ -1,5 +1,6 @@
 package com.kodeco.android.chattybot.ui
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -13,7 +14,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.kodeco.android.chattybot.model.ChatResponse
+import com.kodeco.android.chattybot.model.ChatRetriever
 import com.kodeco.android.chattybot.model.Persona
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
+val callback = object : Callback<ChatResponse> {
+  override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
+      Log.e("ChattingScreen", t.message!!)
+  }
+
+  override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
+    response.isSuccessful.let {
+      Log.e("ChattingScreen", response.body().toString())
+    }
+  }
+}
 
 @Composable
 fun ChattingScreen() {
@@ -84,6 +102,8 @@ fun ChattingScreen() {
             messages.add(message)
             aiMessages.add(message.toCharArray().reversed().joinToString())
             message = ""
+            val retriever = ChatRetriever()
+            retriever.retrieveChat(callback)
           },
           shape = RoundedCornerShape(8.dp)
         ) {
