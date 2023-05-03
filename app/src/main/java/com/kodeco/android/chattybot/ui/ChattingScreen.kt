@@ -22,17 +22,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-val callback = object : Callback<ChatResponse> {
-  override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
-      Log.e("ChattingScreen", t.message!!)
-  }
-
-  override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
-    response.isSuccessful.let {
-      Log.e("ChattingScreen", response.body().toString())
-    }
-  }
-}
 
 @Composable
 fun ChattingScreen(sharedPreferences: SharedPreferences) {
@@ -40,6 +29,18 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
   var message by remember { mutableStateOf("") }
   val messages = remember { mutableStateListOf<String>() }
   val aiMessages = remember { mutableStateListOf<String>() }
+  val callback = object : Callback<ChatResponse> {
+    override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
+      Log.e("ChattingScreen", t.message!!)
+    }
+
+    override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
+      response.isSuccessful.let {
+        val reply = response.body()?.choices!![0].message.content
+        aiMessages.add(reply)
+      }
+    }
+  }
   Column(modifier = Modifier.fillMaxSize()) {
     Box(Modifier.weight(1f).align(Alignment.End)) {
       Column(
@@ -102,7 +103,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           modifier = Modifier.padding(start = 8.dp),
           onClick = {
             messages.add(message)
-            aiMessages.add(message.toCharArray().reversed().joinToString())
+            //aiMessages.add(message.toCharArray().reversed().joinToString())
             val retriever = ChatRetriever(openAPIKey)
             retriever.retrieveChat(callback, message)
             message = ""
