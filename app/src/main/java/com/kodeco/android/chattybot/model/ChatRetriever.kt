@@ -22,9 +22,9 @@ class ChatRetriever(openAIAPIKey: String) {
     this.openAIAPIKey = openAIAPIKey
   }
 
-  fun retrieveChat(callback: Callback<ChatResponse>) {
+  fun retrieveChat(callback: Callback<ChatResponse>, message: String) {
     val requestBody = ChatRequest("gpt-3.5-turbo",
-      listOf(Message("user", "What is the capital of Brazil in the past?")))
+      listOf(Message("user", message)))
     val call = service.getChatCompletions(requestBody, "Bearer $openAIAPIKey")
     call.enqueue(callback)
   }

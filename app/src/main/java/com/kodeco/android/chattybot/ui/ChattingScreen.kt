@@ -103,9 +103,9 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           onClick = {
             messages.add(message)
             aiMessages.add(message.toCharArray().reversed().joinToString())
-            message = ""
             val retriever = ChatRetriever(openAPIKey)
-            retriever.retrieveChat(callback)
+            retriever.retrieveChat(callback, message)
+            message = ""
           },
           shape = RoundedCornerShape(8.dp)
         ) {
