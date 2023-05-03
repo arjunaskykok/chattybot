@@ -4,8 +4,9 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ChatRetriever {
+class ChatRetriever(openAIAPIKey: String) {
   private val service: OpenAIService
+  private val openAIAPIKey: String
 
   companion object {
     const val BASE_URL = "https://api.openai.com/v1/"
@@ -18,13 +19,13 @@ class ChatRetriever {
       .build()
 
     service = retrofit.create(OpenAIService::class.java)
+    this.openAIAPIKey = openAIAPIKey
   }
 
   fun retrieveChat(callback: Callback<ChatResponse>) {
     val requestBody = ChatRequest("gpt-3.5-turbo",
-      listOf(Message("user", "Hello")))
-    val openaiKey = ""
-    val call = service.getChatCompletions(requestBody, "Bearer $openaiKey")
+      listOf(Message("user", "What is the capital of Brazil in the past?")))
+    val call = service.getChatCompletions(requestBody, "Bearer $openAIAPIKey")
     call.enqueue(callback)
   }
 }

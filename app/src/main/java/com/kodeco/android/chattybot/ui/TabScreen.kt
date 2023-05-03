@@ -35,7 +35,7 @@ fun TabScreen(sharedPreferences: SharedPreferences) {
       }
     }
     when (selectedTabIndex) {
-      0 -> ChattingScreen()
+      0 -> ChattingScreen(sharedPreferences)
       1 -> PersonaScreen()
       2 -> SettingsScreen(sharedPreferences)
     }

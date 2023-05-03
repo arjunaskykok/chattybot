@@ -1,5 +1,6 @@
 package com.kodeco.android.chattybot.ui
 
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,7 +35,8 @@ val callback = object : Callback<ChatResponse> {
 }
 
 @Composable
-fun ChattingScreen() {
+fun ChattingScreen(sharedPreferences: SharedPreferences) {
+  val openAPIKey = sharedPreferences.getString("OpenAI API Key", "") ?: ""
   var message by remember { mutableStateOf("") }
   val messages = remember { mutableStateListOf<String>() }
   val aiMessages = remember { mutableStateListOf<String>() }
@@ -102,7 +104,7 @@ fun ChattingScreen() {
             messages.add(message)
             aiMessages.add(message.toCharArray().reversed().joinToString())
             message = ""
-            val retriever = ChatRetriever()
+            val retriever = ChatRetriever(openAPIKey)
             retriever.retrieveChat(callback)
           },
           shape = RoundedCornerShape(8.dp)
