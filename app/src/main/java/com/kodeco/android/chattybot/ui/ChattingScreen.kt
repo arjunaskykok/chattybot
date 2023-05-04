@@ -3,8 +3,6 @@ package com.kodeco.android.chattybot.ui
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -18,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import com.kodeco.android.chattybot.model.ChatResponse
 import com.kodeco.android.chattybot.model.ChatRetriever
 import com.kodeco.android.chattybot.model.Persona
+import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +28,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
   var message by remember { mutableStateOf("") }
   val messages = remember { mutableStateListOf<String>() }
   val aiMessages = remember { mutableStateListOf<String>() }
+  var addedString by remember { mutableStateOf("") }
   val callback = object : Callback<ChatResponse> {
     override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
       Log.e("ChattingScreen", t.message!!)
@@ -38,9 +38,11 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
       response.isSuccessful.let {
         val reply = response.body()?.choices!![0].message.content
         aiMessages.add(reply)
+        addedString = reply
       }
     }
   }
+  var partText by remember { mutableStateOf("") }
   Column(modifier = Modifier.fillMaxSize()) {
     Box(Modifier.weight(1f).align(Alignment.End)) {
       Column(
@@ -49,8 +51,25 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
         verticalArrangement = Arrangement.Bottom
       ) {
         val mixedMessages = messages.zip(aiMessages).flatMap { listOf(it.first, it.second) }
+        val mixedMessagesLength = mixedMessages.size
         mixedMessages.forEachIndexed { index, message ->
-          if (index % 2 == 0) {
+          if (index == mixedMessagesLength - 1) {
+            Box(
+              modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(1f)
+                .height(120.dp)
+                .background(Color.DarkGray, RoundedCornerShape(16.dp))
+            ) {
+              Text(
+                text = partText,
+                modifier = Modifier
+                  .align(Alignment.Center)
+                  .padding(8.dp),
+                color = Color.White
+              )
+            }
+          } else if (index % 2 == 0) {
             Box(
               modifier = Modifier
                 .padding(16.dp)
@@ -103,7 +122,6 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           modifier = Modifier.padding(start = 8.dp),
           onClick = {
             messages.add(message)
-            //aiMessages.add(message.toCharArray().reversed().joinToString())
             val retriever = ChatRetriever(openAPIKey)
             retriever.retrieveChat(callback, message)
             message = ""
@@ -116,6 +134,12 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           )
         }
       }
+    }
+  }
+  LaunchedEffect(key1 = addedString) {
+    addedString.forEachIndexed { charIndex, _ ->
+      partText = addedString.substring(startIndex = 0, endIndex = charIndex + 1)
+      delay(100)
     }
   }
 }

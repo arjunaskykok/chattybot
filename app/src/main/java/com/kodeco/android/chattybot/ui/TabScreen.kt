@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import com.kodeco.android.chattybot.Greeting
 import com.kodeco.android.chattybot.ui.ChattingScreen
 import com.kodeco.android.chattybot.ui.PersonaScreen
+import com.kodeco.android.chattybot.ui.TypewriterText
 
 @Composable
 fun TabScreen(sharedPreferences: SharedPreferences) {
