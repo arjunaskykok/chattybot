@@ -58,7 +58,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
               modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(1f)
-                .height(120.dp)
+                .heightIn(120.dp)
                 .background(Color.DarkGray, RoundedCornerShape(16.dp))
             ) {
               Text(
