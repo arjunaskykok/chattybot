@@ -30,4 +30,9 @@
 
 <resources>
   <string name="app_name">ChattyBot</string>
+  <string name="enter_api_key">Enter OpenAI API Key:</string>
+  <string name="api_key_placeholder">Type here</string>
+  <string name="openai_api_key_link">Get OpenAI API key</string>
+  <string name="save_button">Save</string>
+  <string name="toast_label">Your API key has been saved</string>
 </resources>
