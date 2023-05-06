@@ -40,4 +40,5 @@ class ChatRetriever(openAIAPIKey: String, persona: String) {
   fun addReplyMessage(aiMessage: String) {
     this.messages.add(Message("assistant", aiMessage))
   }
+
 }
