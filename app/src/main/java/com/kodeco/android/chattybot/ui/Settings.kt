@@ -19,11 +19,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.kodeco.android.chattybot.R
 import androidx.compose.ui.unit.dp
+import com.kodeco.android.chattybot.model.OPENAI_API_KEY
 import kotlinx.coroutines.launch
 
 @Composable
 fun SettingsScreen(sharedPreferences: SharedPreferences) {
-  var text by remember { mutableStateOf(sharedPreferences.getString("OpenAI API Key", "") ?: "") }
+  var text by remember { mutableStateOf(sharedPreferences.getString(OPENAI_API_KEY, "") ?: "") }
   val context = LocalContext.current
   val coroutineScope = rememberCoroutineScope()
   val toastLabel = stringResource(R.string.toast_label)
@@ -61,7 +62,7 @@ fun SettingsScreen(sharedPreferences: SharedPreferences) {
     Button(
       onClick = {
         val sharedPrefs = sharedPreferences
-        sharedPrefs.edit().putString("OpenAI API Key", text).apply()
+        sharedPrefs.edit().putString(OPENAI_API_KEY, text).apply()
         coroutineScope.launch {
             Toast.makeText(context, toastLabel, Toast.LENGTH_SHORT).show()
         }

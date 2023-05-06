@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.kodeco.android.chattybot.model.ChatResponse
 import com.kodeco.android.chattybot.model.ChatRetriever
+import com.kodeco.android.chattybot.model.OPENAI_API_KEY
 import com.kodeco.android.chattybot.model.Persona
 import kotlinx.coroutines.delay
 import retrofit2.Call
@@ -24,7 +25,7 @@ import retrofit2.Response
 
 @Composable
 fun ChattingScreen(sharedPreferences: SharedPreferences) {
-  val openAPIKey = sharedPreferences.getString("OpenAI API Key", "") ?: ""
+  val openAPIKey = sharedPreferences.getString(OPENAI_API_KEY, "") ?: ""
   var message by remember { mutableStateOf("") }
   val messages = remember { mutableStateListOf<String>() }
   val aiMessages = remember { mutableStateListOf<String>() }
