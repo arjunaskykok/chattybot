@@ -34,7 +34,7 @@ fun PersonaScreen() {
           .fillMaxWidth()
           .height(120.dp)
           .border(if (selectedIndex == index) 4.dp else 0.dp,
-            Color.Cyan,
+            if (selectedIndex == index) Color.Cyan else Color.White,
             RoundedCornerShape(if (selectedIndex == index) 16.dp else 0.dp))
           .background(Color.LightGray, RoundedCornerShape(16.dp))
           .clickable {
