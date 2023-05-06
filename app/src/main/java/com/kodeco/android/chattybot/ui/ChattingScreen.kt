@@ -121,10 +121,9 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           onClick = {
             messages.add(message)
             val retriever = ChatRetriever(openAPIKey)
-            val persona = sharedPreferences.getString(PERSONA_KEY, "")
-            if (persona != null) {
-              retriever.retrieveChat(callback, message, persona)
-            }
+            val personaIndex = sharedPreferences.getInt(PERSONA_KEY, 0)
+            val persona = Persona.personaInstruction[personaIndex]
+            retriever.retrieveChat(callback, message, persona)
             message = ""
           },
           shape = RoundedCornerShape(8.dp)
