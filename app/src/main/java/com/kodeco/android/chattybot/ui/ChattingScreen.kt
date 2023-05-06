@@ -4,6 +4,8 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -43,14 +45,14 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
   var partText by remember { mutableStateOf("") }
   Column(modifier = Modifier.fillMaxSize()) {
     Box(Modifier.weight(1f).align(Alignment.End)) {
-      Column(
+      LazyColumn(
         modifier = Modifier
           .fillMaxHeight(),
         verticalArrangement = Arrangement.Bottom
       ) {
         val mixedMessages = messages.zip(aiMessages).flatMap { listOf(it.first, it.second) }
         val mixedMessagesLength = mixedMessages.size
-        mixedMessages.forEachIndexed { index, message ->
+        itemsIndexed(mixedMessages) { index, message ->
           if (index == mixedMessagesLength - 1) {
             Box(
               modifier = Modifier
@@ -72,7 +74,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
               modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(1f)
-                .height(120.dp)
+                .heightIn(120.dp)
                 .background(Color.LightGray, RoundedCornerShape(16.dp))
             ) {
               Text(
@@ -87,7 +89,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
               modifier = Modifier
                 .padding(16.dp)
                 .fillMaxWidth(1f)
-                .height(120.dp)
+                .heightIn(120.dp)
                 .background(Color.DarkGray, RoundedCornerShape(16.dp))
             ) {
               Text(
