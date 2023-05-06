@@ -29,6 +29,9 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
   val messages = remember { mutableStateListOf<String>() }
   val aiMessages = remember { mutableStateListOf<String>() }
   var addedString by remember { mutableStateOf("") }
+  val personaIndex = sharedPreferences.getInt(PERSONA_KEY, 0)
+  val persona = Persona.personaInstruction[personaIndex]
+  val retriever = ChatRetriever(openAPIKey, persona)
   val callback = object : Callback<ChatResponse> {
     override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
       Log.e("ChattingScreen", t.message!!)
@@ -38,6 +41,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
       response.isSuccessful.let {
         val reply = response.body()?.choices!![0].message.content
         aiMessages.add(reply)
+        retriever.addReplyMessage(reply)
         addedString = reply
       }
     }
@@ -122,10 +126,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           modifier = Modifier.padding(start = 8.dp),
           onClick = {
             messages.add(message)
-            val retriever = ChatRetriever(openAPIKey)
-            val personaIndex = sharedPreferences.getInt(PERSONA_KEY, 0)
-            val persona = Persona.personaInstruction[personaIndex]
-            retriever.retrieveChat(callback, message, persona)
+            retriever.retrieveChat(callback, message)
             message = ""
           },
           shape = RoundedCornerShape(8.dp)
