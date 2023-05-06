@@ -14,14 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.kodeco.android.chattybot.model.OPENAI_API_KEY
 import com.kodeco.android.chattybot.model.PERSONA_KEY
 import com.kodeco.android.chattybot.model.Persona
 
 @Composable
 fun PersonaScreen(sharedPreferences: SharedPreferences) {
-  var selectedIndex by remember { mutableStateOf(-1) }
-
+  var selectedIndex by remember { mutableStateOf(sharedPreferences.getInt(PERSONA_KEY, -1)) }
   LazyColumn {
     items(Persona.personaInstruction.size) { index ->
       Text(
@@ -43,8 +41,7 @@ fun PersonaScreen(sharedPreferences: SharedPreferences) {
           .clickable {
             selectedIndex = index
             val sharedPrefs = sharedPreferences
-            val persona = Persona.personaInstruction[index]
-            sharedPrefs.edit().putString(PERSONA_KEY, persona).apply()
+            sharedPrefs.edit().putInt(PERSONA_KEY, index).apply()
           }
       ) {
         Text(
