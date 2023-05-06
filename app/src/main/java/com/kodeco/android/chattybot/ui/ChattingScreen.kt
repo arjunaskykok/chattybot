@@ -13,10 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.kodeco.android.chattybot.model.ChatResponse
-import com.kodeco.android.chattybot.model.ChatRetriever
-import com.kodeco.android.chattybot.model.OPENAI_API_KEY
-import com.kodeco.android.chattybot.model.Persona
+import com.kodeco.android.chattybot.model.*
 import kotlinx.coroutines.delay
 import retrofit2.Call
 import retrofit2.Callback
@@ -124,7 +121,10 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           onClick = {
             messages.add(message)
             val retriever = ChatRetriever(openAPIKey)
-            retriever.retrieveChat(callback, message)
+            val persona = sharedPreferences.getString(PERSONA_KEY, "")
+            if (persona != null) {
+              retriever.retrieveChat(callback, message, persona)
+            }
             message = ""
           },
           shape = RoundedCornerShape(8.dp)
