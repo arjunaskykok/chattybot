@@ -6,7 +6,9 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.res.stringResource
 import com.kodeco.android.chattybot.Greeting
+import com.kodeco.android.chattybot.R
 import com.kodeco.android.chattybot.ui.ChattingScreen
 import com.kodeco.android.chattybot.ui.PersonaScreen
 
@@ -15,9 +17,9 @@ fun TabScreen(sharedPreferences: SharedPreferences) {
   var selectedTabIndex by remember { mutableStateOf(0) }
 
   val tabs = listOf(
-    Pair("Chat", Icons.Default.Send),
-    Pair("Persona", Icons.Default.Person),
-    Pair("Settings", Icons.Default.Settings)
+    Pair(stringResource(R.string.tab_chat), Icons.Default.Send),
+    Pair(stringResource(R.string.tab_persona), Icons.Default.Person),
+    Pair(stringResource(R.string.tab_settings), Icons.Default.Settings)
   )
 
   Column {
