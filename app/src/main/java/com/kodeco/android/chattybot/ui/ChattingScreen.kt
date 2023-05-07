@@ -25,7 +25,7 @@ import retrofit2.Response
 @Composable
 fun ChattingScreen(sharedPreferences: SharedPreferences) {
   val openAPIKey = sharedPreferences.getString(OPENAI_API_KEY, "") ?: ""
-  var message by remember { mutableStateOf("") }
+  var message: String by remember { mutableStateOf("") }
   val historicalMessages = remember { mutableStateListOf<Message>() }
   var addedString by remember { mutableStateOf("") }
   val personaIndex = sharedPreferences.getInt(PERSONA_KEY, 0)
@@ -33,7 +33,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
   val retriever = ChatRetriever(openAPIKey, persona)
   val callback = object : Callback<ChatResponse> {
     override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
-      Log.e("ChattingScreen", t.message!!)
+      Log.e("ChattyBot", t.message!!)
     }
 
     override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
@@ -53,8 +53,8 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           .fillMaxHeight(),
         verticalArrangement = Arrangement.Bottom
       ) {
-        itemsIndexed(historicalMessages) { index, message ->
-          if (message.role == "assistant" && index == historicalMessages.size - 1) {
+        itemsIndexed(historicalMessages) { index, messageBox ->
+          if (messageBox.role == "assistant" && index == historicalMessages.size - 1) {
             Box(
               modifier = Modifier
                 .padding(16.dp)
@@ -70,7 +70,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
                 color = Color.White
               )
             }
-          } else if (message.role == "user") {
+          } else if (messageBox.role == "user") {
             Box(
               modifier = Modifier
                 .padding(16.dp)
@@ -79,13 +79,13 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
                 .background(Color.LightGray, RoundedCornerShape(16.dp))
             ) {
               Text(
-                text = message.content,
+                text = messageBox.content,
                 modifier = Modifier
                   .align(Alignment.Center)
                   .padding(8.dp)
               )
             }
-          } else if (message.role == "assistant") {
+          } else if (messageBox.role == "assistant") {
             Box(
               modifier = Modifier
                 .padding(16.dp)
@@ -94,7 +94,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
                 .background(Color.DarkGray, RoundedCornerShape(16.dp))
             ) {
               Text(
-                text = message.content,
+                text = messageBox.content,
                 modifier = Modifier
                   .align(Alignment.Center)
                   .padding(8.dp),
