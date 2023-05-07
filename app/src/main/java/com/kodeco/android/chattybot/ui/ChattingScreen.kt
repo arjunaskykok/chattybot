@@ -138,7 +138,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
   LaunchedEffect(key1 = addedString) {
     addedString.forEachIndexed { charIndex, _ ->
       partText = addedString.substring(startIndex = 0, endIndex = charIndex + 1)
-      delay(100)
+      delay(50)
     }
   }
 }
