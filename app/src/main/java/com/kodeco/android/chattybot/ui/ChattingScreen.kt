@@ -95,51 +95,66 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
       ) {
         itemsIndexed(historicalMessages) { index, messageBox ->
           if (messageBox.role == "assistant" && index == historicalMessages.size - 1) {
-            Box(
-              modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(1f)
-                .heightIn(120.dp)
-                .background(Color.DarkGray, RoundedCornerShape(16.dp))
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              horizontalArrangement = Arrangement.Start
             ) {
-              Text(
-                text = partText,
+              Box(
                 modifier = Modifier
-                  .align(Alignment.Center)
-                  .padding(8.dp),
-                color = Color.White
-              )
+                  .padding(16.dp)
+                  .fillMaxWidth(0.8f)
+                  .heightIn(120.dp)
+                  .background(Color.DarkGray, RoundedCornerShape(16.dp))
+              ) {
+                Text(
+                  text = partText,
+                  modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(8.dp),
+                  color = Color.White
+                )
+              }
             }
           } else if (messageBox.role == "user") {
-            Box(
-              modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(1f)
-                .heightIn(120.dp)
-                .background(Color.LightGray, RoundedCornerShape(16.dp))
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              horizontalArrangement = Arrangement.End
             ) {
-              Text(
-                text = messageBox.content,
+              Box(
                 modifier = Modifier
-                  .align(Alignment.Center)
-                  .padding(8.dp)
-              )
+                  .padding(16.dp)
+                  .fillMaxWidth(0.8f)
+                  .heightIn(120.dp)
+                  .background(Color.LightGray, RoundedCornerShape(16.dp))
+              ) {
+                Text(
+                  text = messageBox.content,
+                  modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(8.dp)
+                )
+              }
             }
           } else if (messageBox.role == "assistant") {
-            Box(
-              modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(1f)
-                .heightIn(120.dp)
-                .background(Color.DarkGray, RoundedCornerShape(16.dp))
+            Row(
+              modifier = Modifier.fillMaxWidth(),
+              horizontalArrangement = Arrangement.Start
             ) {
-              Text(
-                text = messageBox.content,
+              Box(
                 modifier = Modifier
-                  .align(Alignment.Center)
-                  .padding(8.dp),
-                color = Color.White
-              )
+                  .padding(16.dp)
+                  .fillMaxWidth(0.8f)
+                  .heightIn(120.dp)
+                  .background(Color.DarkGray, RoundedCornerShape(16.dp))
+              ) {
+                Text(
+                  text = messageBox.content,
+                  modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(8.dp),
+                  color = Color.White
+                )
+              }
             }
           }
         }
