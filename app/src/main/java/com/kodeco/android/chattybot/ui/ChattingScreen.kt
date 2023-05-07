@@ -39,6 +39,8 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -97,8 +99,13 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           if (messageBox.role == "assistant" && index == historicalMessages.size - 1) {
             Row(
               modifier = Modifier.fillMaxWidth(),
-              horizontalArrangement = Arrangement.Start
+              horizontalArrangement = Arrangement.Start,
+              verticalAlignment = Alignment.Bottom
             ) {
+              Icon(
+                imageVector = Icons.Default.Face,
+                contentDescription = "AI Icon"
+              )
               Box(
                 modifier = Modifier
                   .padding(16.dp)
@@ -118,7 +125,8 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           } else if (messageBox.role == "user") {
             Row(
               modifier = Modifier.fillMaxWidth(),
-              horizontalArrangement = Arrangement.End
+              horizontalArrangement = Arrangement.End,
+              verticalAlignment = Alignment.Bottom
             ) {
               Box(
                 modifier = Modifier
@@ -134,12 +142,21 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
                     .padding(8.dp)
                 )
               }
+              Icon(
+                imageVector = Icons.Default.Person,
+                contentDescription = "User Icon"
+              )
             }
           } else if (messageBox.role == "assistant") {
             Row(
               modifier = Modifier.fillMaxWidth(),
-              horizontalArrangement = Arrangement.Start
+              horizontalArrangement = Arrangement.Start,
+              verticalAlignment = Alignment.Bottom
             ) {
+              Icon(
+                imageVector = Icons.Default.Face,
+                contentDescription = "AI Icon"
+              )
               Box(
                 modifier = Modifier
                   .padding(16.dp)
