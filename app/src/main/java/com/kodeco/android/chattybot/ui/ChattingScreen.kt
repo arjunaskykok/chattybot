@@ -2,6 +2,7 @@ package com.kodeco.android.chattybot.ui
 
 import android.content.SharedPreferences
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,9 +15,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.kodeco.android.chattybot.model.*
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,17 +34,25 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
   val personaIndex = sharedPreferences.getInt(PERSONA_KEY, 0)
   val persona = Persona.personaInstruction[personaIndex]
   val retriever = ChatRetriever(openAPIKey, persona)
+  val context = LocalContext.current
+  val coroutineScope = rememberCoroutineScope()
   val callback = object : Callback<ChatResponse> {
     override fun onFailure(call: Call<ChatResponse>, t: Throwable) {
       Log.e("ChattyBot", t.message!!)
+      val toastLabel = t.message!!
+      coroutineScope.launch {
+        Toast.makeText(context, toastLabel, Toast.LENGTH_SHORT).show()
+      }
     }
 
     override fun onResponse(call: Call<ChatResponse>, response: Response<ChatResponse>) {
       response.isSuccessful.let {
-        val reply = response.body()?.choices!![0].message.content
-        historicalMessages.add(Message("assistant", reply))
-        retriever.addReplyMessage(reply)
-        addedString = reply
+        if (!response.body()?.choices.isNullOrEmpty()) {
+          val reply = response.body()?.choices!![0].message.content
+          historicalMessages.add(Message("assistant", reply))
+          retriever.addReplyMessage(reply)
+          addedString = reply
+        }
       }
     }
   }
