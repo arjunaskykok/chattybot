@@ -38,7 +38,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import com.kodeco.android.chattybot.ui.theme.chattybotTheme
-import com.kodeco.chattybot.ui.TabScreen
+import com.kodeco.android.chattybot.ui.TabScreen
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {

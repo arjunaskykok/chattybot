@@ -27,7 +27,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package com.kodeco.chattybot.ui
+package com.kodeco.android.chattybot.ui
 
 import android.content.SharedPreferences
 import androidx.compose.foundation.layout.Column
@@ -37,8 +37,6 @@ import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.res.stringResource
 import com.kodeco.android.chattybot.R
-import com.kodeco.android.chattybot.ui.ChattingScreen
-import com.kodeco.android.chattybot.ui.PersonaScreen
 
 @Composable
 fun TabScreen(sharedPreferences: SharedPreferences) {
