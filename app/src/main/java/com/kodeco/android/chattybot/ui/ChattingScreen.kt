@@ -38,6 +38,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.runtime.*
@@ -47,6 +48,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.kodeco.android.chattybot.model.*
+import com.kodeco.android.chattybot.ui.theme.colorPrimary
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Call
@@ -107,7 +109,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
     Box(Modifier.align(Alignment.End)) {
       Row(modifier = Modifier
         .fillMaxWidth()
-        .background(Color.LightGray)
+        .background(colors.onSurface)
         .padding(16.dp)) {
         TextField(
           modifier = Modifier.weight(1f),
@@ -115,7 +117,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
           onValueChange = { message = it },
           placeholder = {  },
           colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Color.White
+            backgroundColor = colors.background
           )
         )
         Button(
@@ -129,7 +131,8 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
         ) {
           Icon(
             imageVector = Icons.Default.Send,
-            contentDescription = null
+            contentDescription = null,
+            tint = Color.White
           )
         }
       }
