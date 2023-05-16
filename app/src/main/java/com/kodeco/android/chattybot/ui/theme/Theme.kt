@@ -35,17 +35,20 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
   primary = colorPrimaryDark,
   primaryVariant = colorPrimary,
-  secondary = colorAccent
+  secondary = colorAccent,
+  onSurface = Color.DarkGray,
 )
 
 private val LightColorPalette = lightColors(
   primary = colorPrimary,
   primaryVariant = colorPrimaryDark,
-  secondary = colorAccent
+  secondary = colorAccent,
+  onSurface = Color.LightGray,
 
   /* Other default colors to override
     background = Color.White,
@@ -56,6 +59,8 @@ private val LightColorPalette = lightColors(
     onSurface = Color.Black,
     */
 )
+
+
 
 @Composable
 fun chattybotTheme(

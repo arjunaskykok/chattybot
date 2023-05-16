@@ -33,9 +33,11 @@ import android.content.SharedPreferences
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -64,9 +66,9 @@ fun PersonaScreen(sharedPreferences: SharedPreferences) {
           .fillMaxWidth()
           .height(120.dp)
           .border(if (selectedIndex == index) 4.dp else 0.dp,
-            if (selectedIndex == index) Color.Cyan else Color.White,
+            if (selectedIndex == index) Color.Cyan else colors.surface,
             RoundedCornerShape(if (selectedIndex == index) 16.dp else 0.dp))
-          .background(Color.LightGray, RoundedCornerShape(16.dp))
+          .background(colors.onSurface, RoundedCornerShape(16.dp))
           .clickable {
             selectedIndex = index
             val sharedPrefs = sharedPreferences

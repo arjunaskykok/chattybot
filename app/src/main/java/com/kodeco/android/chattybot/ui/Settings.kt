@@ -38,12 +38,11 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextField
+import androidx.compose.material.*
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.kodeco.android.chattybot.R
@@ -79,7 +78,7 @@ fun SettingsScreen(sharedPreferences: SharedPreferences) {
     Text(
       text = stringResource(R.string.openai_api_key_link),
       style = MaterialTheme.typography.body2,
-      color = MaterialTheme.colors.primary,
+      color = colors.primaryVariant,
       modifier = Modifier
         .clickable {
           val intent =
@@ -100,7 +99,8 @@ fun SettingsScreen(sharedPreferences: SharedPreferences) {
         .fillMaxWidth()
         .padding(vertical = 8.dp)
     ) {
-      Text(text = stringResource(R.string.save_button))
+      Text(text = stringResource(R.string.save_button),
+        color = Color.White)
     }
   }
 }
