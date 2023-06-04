@@ -64,7 +64,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
   var addedString by remember { mutableStateOf("") }
   val personaIndex = sharedPreferences.getInt(PERSONA_KEY, 0)
   val persona = Persona.personaInstruction[personaIndex]
-  val retriever = ChatRetriever(openAPIKey, persona)
+  val retriever: ChatRetriever by remember { mutableStateOf(ChatRetriever(openAPIKey, persona)) }
   val context = LocalContext.current
   val coroutineScope = rememberCoroutineScope()
   val callback = object : Callback<ChatResponse> {
