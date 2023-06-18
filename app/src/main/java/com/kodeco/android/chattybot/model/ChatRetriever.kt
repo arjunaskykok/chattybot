@@ -61,21 +61,21 @@ class ChatRetriever(openAIAPIKey: String, persona: String) {
     this.openAIAPIKey = openAIAPIKey
     this.persona = persona
     if (this.persona.isNotEmpty()) {
-      this.messages = mutableListOf(Message("system", persona))
+      this.messages = mutableListOf(Message(MessageType.SYSTEM, persona))
     } else {
       this.messages = mutableListOf()
     }
   }
 
   fun retrieveChat(callback: Callback<ChatResponse>, message: String) {
-    this.messages.add(Message("user", message))
+    this.messages.add(Message(MessageType.USER, message))
     val requestBody = ChatRequest("gpt-3.5-turbo", messages)
     val call = service.getChatCompletions(requestBody, "Bearer $openAIAPIKey")
     call.enqueue(callback)
   }
 
   fun addReplyMessage(aiMessage: String) {
-    this.messages.add(Message("assistant", aiMessage))
+    this.messages.add(Message(MessageType.ASSISTANT, aiMessage))
   }
 
 }

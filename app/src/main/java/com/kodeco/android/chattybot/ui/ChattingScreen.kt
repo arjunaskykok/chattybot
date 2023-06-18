@@ -80,7 +80,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
       response.isSuccessful.let {
         if (!response.body()?.choices.isNullOrEmpty()) {
           val reply = response.body()?.choices!![0].message.content
-          historicalMessages.add(Message("assistant", reply))
+          historicalMessages.add(Message(MessageType.ASSISTANT, reply))
           retriever.addReplyMessage(reply)
           addedString = reply
         }
@@ -96,11 +96,11 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
         verticalArrangement = Arrangement.Bottom
       ) {
         itemsIndexed(historicalMessages) { index, messageBox ->
-          if (messageBox.role == "assistant" && index == historicalMessages.size - 1) {
+          if (messageBox.role == MessageType.ASSISTANT && index == historicalMessages.size - 1) {
             AIMessage(partText)
-          } else if (messageBox.role == "user") {
+          } else if (messageBox.role == MessageType.USER) {
             UserMessage(messageBox.content)
-          } else if (messageBox.role == "assistant") {
+          } else if (messageBox.role == MessageType.ASSISTANT) {
             AIMessage(messageBox.content)
           }
         }
@@ -123,7 +123,7 @@ fun ChattingScreen(sharedPreferences: SharedPreferences) {
         Button(
           modifier = Modifier.padding(start = 8.dp),
           onClick = {
-            historicalMessages.add(Message("user", message))
+            historicalMessages.add(Message(MessageType.USER, message))
             retriever.retrieveChat(callback, message)
             message = ""
           },

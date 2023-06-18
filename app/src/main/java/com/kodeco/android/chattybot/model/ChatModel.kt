@@ -35,7 +35,7 @@ data class ChatRequest(
 )
 
 data class Message(
-  val role: String,
+  val role: MessageType,
   val content: String
 )
 
@@ -47,4 +47,10 @@ data class Choice(
   val index: Integer,
   val message: Message
 )
+
+enum class MessageType {
+    USER,
+    ASSISTANT,
+    SYSTEM
+}
 
