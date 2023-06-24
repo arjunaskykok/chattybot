@@ -69,8 +69,8 @@ class ChatRetriever(openAIAPIKey: String, persona: String) {
 
   fun retrieveChat(callback: Callback<ChatResponse>, message: String) {
     this.messages.add(Message(MessageType.USER.type, message))
-    val temperature = 0.2
-    val requestBody = ChatRequest("gpt-3.5-turbo", messages)
+    val temperature = 1.0
+    val requestBody = ChatRequest("gpt-3.5-turbo", messages, temperature)
     val call = service.getChatCompletions(requestBody, "Bearer $openAIAPIKey")
     call.enqueue(callback)
   }

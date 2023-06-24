@@ -31,7 +31,8 @@ package com.kodeco.android.chattybot.model
 
 data class ChatRequest(
   val model: String,
-  val messages: List<Message>
+  val messages: List<Message>,
+  val temperature: Double
 )
 
 data class Message(
